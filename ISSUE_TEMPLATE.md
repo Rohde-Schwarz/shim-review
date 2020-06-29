@@ -1,49 +1,56 @@
 Make sure you have provided the following information:
 
- - [ ] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag
- - [ ] completed README.md file with the necessary information
- - [ ] shim.efi to be signed
- - [ ] public portion of your certificate embedded in shim (the file passed to VENDOR_CERT_FILE)
- - [ ] any extra patches to shim via your own git tree or as files
- - [ ] any extra patches to grub via your own git tree or as files
- - [ ] build logs
+ - [x] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag  
+https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20200629
+ - [x] completed README.md file with the necessary information  
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/README.md
+ - [x] shim.efi to be signed  
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/shimx64.efi
+ - [x] public portion of your certificate embedded in shim (the file passed to VENDOR_CERT_FILE)  
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/rs-uefi-cs.der
+ - [x] any extra patches to shim via your own git tree or as files  
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/patches/mokmanager-use-comparemem.patch
+ - [x] any extra patches to grub via your own git tree or as files  
+N/A 
+ - [x] build logs  
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/build.log
 
 
 ###### What organization or people are asking to have this signed:
-`[your text here]`
+`Rohde & Schwarz Cybersecurity GmbH`
 
 ###### What product or service is this for:
-`[your text here]`
+`Trusted Disk full-disk encryption`
 
 ###### What is the origin and full version number of your shim?
-`[your text here]`
+`https://github.com/rhboot/shim/releases/tag/15`
 
 ###### What's the justification that this really does need to be signed for the whole world to be able to boot it:
-`[your text here]`
+`Trusted Disk provides full-disk encryption for internal and external storage devices and protects data from unauthorized access. With a signed SHIM bootloader we are able to use the secure boot feature to ensure that each of the files in the boot chain are unmodified.`
 
 ###### How do you manage and protect the keys used in your SHIM?
-`[your text here]`
+`The private key is stored on hardware token with restricted access.`
 
 ###### Do you use EV certificates as embedded certificates in the SHIM?
-`[your text here]`
+`No.`
 
 ###### What is the origin and full version number of your bootloader (GRUB or other)?
-`[your text here]`
+`No GRUB bootloader is used.`
 
 ###### If your SHIM launches any other components, please provide further details on what is launched
-`[your text here]`
+`The SHIM launches our pre-boot authentication component that decrypts the system and boots a Windows operating system.`
 
 ###### How do the launched components prevent execution of unauthenticated code?
-`[your text here]`
+`The integrity of each file in our boot chain is verified by checking the validity of the digital signature when using the LoadImage/StartImage functions.`
 
 ###### Does your SHIM load any loaders that support loading unsigned kernels (e.g. GRUB)?
-`[your text here]`
+`No.`
 
 ###### What kernel are you using? Which patches does it includes to enforce Secure Boot?
-`[your text here]`
+`No Linux kernel is used.`
 
 ###### What changes were made since your SHIM was last signed?
-`[your text here]`
+`-`
 
 ###### What is the hash of your final SHIM binary?
-`[your text here]`
+`CF32043988BF7FCBB04B772C034B0B0D099CB25144C0B9C9370D01140F392F60`
