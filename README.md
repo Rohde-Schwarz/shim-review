@@ -51,22 +51,22 @@ Who is the secondary contact for security updates, etc.
 -------------------------------------------------------------------------------
 What upstream shim tag is this starting from:
 -------------------------------------------------------------------------------
-https://github.com/rhboot/shim/releases/tag/15
+https://github.com/rhboot/shim/tree/15.2
 
 -------------------------------------------------------------------------------
 URL for a repo that contains the exact code which was built to get this binary:
 -------------------------------------------------------------------------------
-https://github.com/rhboot/shim/releases/tag/15
+https://github.com/rhboot/shim/tree/15.2
 
 -------------------------------------------------------------------------------
 What patches are being applied and why:
 -------------------------------------------------------------------------------
-  * mokmanager-use-comparemem.patch: Fix the errors from gcc9 '-Werror=address-of-packed-member'
+No patches are being applied
 
 -------------------------------------------------------------------------------
 If bootloader, shim loading is, grub2: is CVE-2020-10713 fixed ?
 -------------------------------------------------------------------------------
-[your text here]
+No GRUB bootloader is used.
 
 -------------------------------------------------------------------------------
 If bootloader, shim loading is, grub2, and previous shims were trusting affected
@@ -76,7 +76,7 @@ by CVE-2020-10713 grub2:
 * Does your new chain of trust disallow booting old, affected by CVE-2020-10713,
   grub2 builds ?
 -------------------------------------------------------------------------------
-[your text here]
+No GRUB bootloader is used.
 
 -------------------------------------------------------------------------------
 If your boot chain of trust includes linux kernel, is
@@ -85,7 +85,7 @@ upstream commit 1957a85b0032a81e6482ca4aab883643b8dae06e applied ?
 Is "ACPI: configfs: Disallow loading ACPI tables when locked down"
 upstream commit 75b0cea7bf307f362057cc778efe89af4c615354 applied ?
 -------------------------------------------------------------------------------
-[your text here]
+No Linux kernel is used.
 
 
 -------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ hashes please briefly describe your certificate setup. If there are whitelisted 
 please provide exact binaries for which hashes are created via file sharing service,
 available in public with anonymous access for verification
 -------------------------------------------------------------------------------
-[your text here]
+No vendor_db is used.
 
 -------------------------------------------------------------------------------
 What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as close as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
@@ -105,7 +105,7 @@ Please use the included Dockerfile to build and verify our shim bootloader.
 -------------------------------------------------------------------------------
 Which files in this repo are the logs for your build?   This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 -------------------------------------------------------------------------------
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/build.log
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929/build.log
 
 -------------------------------------------------------------------------------
 Add any additional information you think we may need to validate this shim

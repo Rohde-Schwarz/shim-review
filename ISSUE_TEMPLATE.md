@@ -1,20 +1,21 @@
 Make sure you have provided the following information:
 
  - [x] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag  
-https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20200629
+https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20200929
  - [x] completed README.md file with the necessary information  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/README.md
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929/README.md
  - [x] shim.efi to be signed  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/shimx64.efi
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929/shimx64.efi
  - [x] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/rs-uefi-cs.der
- - [ ] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes whitelisted )
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929/rs-uefi-cs.der
+ - [x] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes whitelisted )  
+No vendor_db is used.
  - [x] any extra patches to shim via your own git tree or as files  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/patches/mokmanager-use-comparemem.patch
+N/A 
  - [x] any extra patches to grub via your own git tree or as files  
 N/A 
  - [x] build logs  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629/build.log
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929/build.log
 
 
 ###### What organization or people are asking to have this signed:
@@ -24,7 +25,7 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629
 `Trusted Disk full-disk encryption`
 
 ###### What is the origin and full version number of your shim?
-`https://github.com/rhboot/shim/releases/tag/15`
+`https://github.com/rhboot/shim/tree/15.2`
 
 ###### What's the justification that this really does need to be signed for the whole world to be able to boot it:
 `Trusted Disk provides full-disk encryption for internal and external storage devices and protects data from unauthorized access. With a signed SHIM bootloader we are able to use the secure boot feature to ensure that each of the files in the boot chain are unmodified.`
@@ -36,16 +37,16 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629
 `No.`
 
 ###### If you use new vendor_db functionality, are any hashes whitelisted, and if yes: for what binaries ?
-`[your text here]`
+`No vendor_db is used.`
 
 ###### Is kernel upstream commit 75b0cea7bf307f362057cc778efe89af4c615354 present in your kernel, if you boot chain includes a linux kernel ?
-`[your text here]`
+`No Linux kernel is used.`
 
 ###### if SHIM is loading grub2 bootloader, is CVE CVE-2020-10713 fixed ?
-`[your text here]`
+`No GRUB bootloader is used.`
 
 ##### Did you change your certificate strategy, so that affected by CVE CVE-2020-10713 grub2 bootloaders can not be verified ?
-`[your text here]`
+`No GRUB bootloader is used.`
 
 ###### What is the origin and full version number of your bootloader (GRUB or other)?
 `No GRUB bootloader is used.`
@@ -66,4 +67,4 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200629
 `-`
 
 ###### What is the hash of your final SHIM binary?
-`CF32043988BF7FCBB04B772C034B0B0D099CB25144C0B9C9370D01140F392F60`
+`D56FB7533B8C027168EA28B542F01BA9FCF61077807E7DEA50B9F4A1BFC6B019`
