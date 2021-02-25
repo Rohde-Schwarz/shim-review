@@ -50,6 +50,11 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 ###### fixed ?
 `[your text here]`
 
+###### "Please specifically confirm that you add a vendor specific SBAT entry for SBAT header in each binary that supports SBAT metadata
+###### ( grub2, fwupd, fwupdate, shim + all child shim binaries )" to shim review doc ?
+###### Please provide exact SBAT entries for all SBAT binaries you are booting or planning to boot directly through shim
+`[your text here]`
+
 ##### Were your old SHIM hashes provided to Microsoft ?
 `[your text here]`
 
@@ -59,11 +64,20 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 ##### grub2 bootloaders can not be verified ?
 `[your text here]`
 
+
+##### What exact implementation of Secureboot in grub2 ( if this is your bootloader ) you have ?
+##### * Upstream grub2 shim_lock verifier or * Downstream RHEL/Fedora/Debian/Canonical like implementation ?
+`[your text here]`
+
 ###### What is the origin and full version number of your bootloader (GRUB or other)?
 `No GRUB bootloader is used.`
 
 ###### If your SHIM launches any other components, please provide further details on what is launched
 `The SHIM launches our pre-boot authentication component that decrypts the system and boots a Windows operating system.`
+
+###### If your GRUB launches any other binaries that are not Linux kernel in SecureBoot mode,
+###### please provide further details on what is launched and how it enforces Secureboot lockdown
+`[your text here]`
 
 ###### How do the launched components prevent execution of unauthenticated code?
 `The integrity of each file in our boot chain is verified by checking the validity of the digital signature when using the LoadImage/StartImage functions.`
