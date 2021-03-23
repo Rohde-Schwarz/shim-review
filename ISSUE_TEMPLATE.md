@@ -8,7 +8,7 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929/shimx64.efi
  - [x] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)  
 https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929/rs-uefi-cs.der
- - [x] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes whitelisted )  
+ - [x] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes allow-listed )
 No vendor_db is used.
  - [x] any extra patches to shim via your own git tree or as files  
 N/A 
@@ -24,7 +24,11 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 ###### What product or service is this for:
 `Trusted Disk full-disk encryption`
 
-###### What is the origin and full version number of your shim?
+###### Please create your shim binaries starting with the 15.3 shim release tar file:
+###### https://github.com/rhboot/shim/releases/download/15.3/shim-15.3.tar.bz2
+###### This matches https://github.com/rhboot/shim/releases/tag/15.3 and contains
+###### the appropriate gnu-efi source.
+###### Please confirm this as the origin your shim.
 `https://github.com/rhboot/shim/tree/15.2`
 
 ###### What's the justification that this really does need to be signed for the whole world to be able to boot it:
@@ -36,13 +40,13 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 ###### Do you use EV certificates as embedded certificates in the SHIM?
 `No.`
 
-###### If you use new vendor_db functionality, are any hashes whitelisted, and if yes: for what binaries ?
+###### If you use new vendor_db functionality, are any hashes allow-listed, and if yes: for what binaries ?
 `No vendor_db is used.`
 
-###### Is kernel upstream commit 75b0cea7bf307f362057cc778efe89af4c615354 present in your kernel, if you boot chain includes a linux kernel ?
+###### Is kernel upstream commit 75b0cea7bf307f362057cc778efe89af4c615354 present in your kernel, if you boot chain includes a Linux kernel ?
 `No Linux kernel is used.`
 
-###### if SHIM is loading grub2 bootloader, are CVEs CVE-2020-14372,
+###### if SHIM is loading GRUB2 bootloader, are CVEs CVE-2020-14372,
 ###### CVE-2020-25632, CVE-2020-25647, CVE-2020-27749, CVE-2020-27779,
 ###### CVE-2021-20225, CVE-2021-20233, CVE-2020-10713, CVE-2020-14308,
 ###### CVE-2020-14309, CVE-2020-14310, CVE-2020-14311, CVE-2020-15705,
@@ -65,7 +69,6 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 ##### grub2 bootloaders can not be verified ?
 `[your text here]`
 
-
 ##### What exact implementation of Secureboot in grub2 ( if this is your bootloader ) you have ?
 ##### * Upstream grub2 shim_lock verifier or * Downstream RHEL/Fedora/Debian/Canonical like implementation ?
 `[your text here]`
@@ -76,8 +79,16 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 ###### If your SHIM launches any other components, please provide further details on what is launched
 `The SHIM launches our pre-boot authentication component that decrypts the system and boots a Windows operating system.`
 
-###### If your GRUB launches any other binaries that are not Linux kernel in SecureBoot mode,
+###### If your GRUB2 launches any other binaries that are not Linux kernel in SecureBoot mode,
 ###### please provide further details on what is launched and how it enforces Secureboot lockdown
+`[your text here]`
+
+###### If you are re-using a previously used (CA) certificate, you
+###### will need to add the hashes of the previous GRUB2 binaries
+###### exposed to the CVEs to vendor_dbx in shim in order to prevent
+###### GRUB2 from being able to chainload those older GRUB2 binaries. If
+###### you are changing to a new (CA) certificate, this does not
+###### apply. Please describe your strategy.
 `[your text here]`
 
 ###### How do the launched components prevent execution of unauthenticated code?
@@ -92,5 +103,5 @@ https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20200929
 ###### What changes were made since your SHIM was last signed?
 `-`
 
-###### What is the hash of your final SHIM binary?
+###### What is the SHA256 hash of your final SHIM binary?
 `D56FB7533B8C027168EA28B542F01BA9FCF61077807E7DEA50B9F4A1BFC6B019`
