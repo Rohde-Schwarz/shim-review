@@ -60,12 +60,13 @@ We are using https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar
 -------------------------------------------------------------------------------
 URL for a repo that contains the exact code which was built to get this binary:
 -------------------------------------------------------------------------------
-Please use the Dockerfile in https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20210401 to build and verify our shim bootloader. We are using https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2 
+Please use the Dockerfile in https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20210711 to build and verify our shim bootloader. We are using https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2 
 
 -------------------------------------------------------------------------------
 What patches are being applied and why:
 -------------------------------------------------------------------------------
 **msabi.patch** Using the ms_abi calling convention for the SHIM_LOCK protocol function invocation.
+**bypass_bootoptions.patch** Bypass bootoption parsing and second stage loader name assembly.
 
 -------------------------------------------------------------------------------
 If bootloader, shim loading is, GRUB2: is CVE-2020-14372, CVE-2020-25632,
@@ -127,7 +128,7 @@ in order to prevent GRUB2 from being able to chainload those older GRUB2
 binaries. If you are changing to a new (CA) certificate, this does not
 apply. Please describe your strategy.
 -------------------------------------------------------------------------------
-This is our first SHIM submission.
+This is just a patched version of our first SHIM submission.
 
 -------------------------------------------------------------------------------
 What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as close as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
@@ -135,10 +136,15 @@ If possible, provide a Dockerfile that rebuilds the shim.
 -------------------------------------------------------------------------------
 Please use the included Dockerfile to build and verify our shim bootloader.
 
+Use the command:
+
+docker build https://github.com/Rohde-Schwarz/shim-review.git
+
+to reproduce this build.
 -------------------------------------------------------------------------------
 Which files in this repo are the logs for your build?   This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 -------------------------------------------------------------------------------
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210401/build.log
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/build.log
 
 -------------------------------------------------------------------------------
 Add any additional information you think we may need to validate this shim

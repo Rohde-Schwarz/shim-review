@@ -1,21 +1,22 @@
 Make sure you have provided the following information:
 
  - [x] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag  
-https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20210401
+https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20210711
  - [x] completed README.md file with the necessary information  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210401/README.md
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/README.md
  - [x] shim.efi to be signed  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210401/shimx64.efi
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/shimx64.efi
  - [x] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210401/rs-uefi-cs.der
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/rs-uefi-cs.der
  - [x] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes allow-listed )  
 No vendor_db is used.
  - [x] any extra patches to shim via your own git tree or as files  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210401/patches/msabi.patch 
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/patches/msabi.patch  
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/patches/bypass_bootoptions.patch 
  - [x] any extra patches to grub via your own git tree or as files  
 N/A 
  - [x] build logs  
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210401/build.log
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/build.log
 
 
 ###### What organization or people are asking to have this signed:
@@ -71,7 +72,7 @@ Yes, we are using `https://github.com/rhboot/shim/releases/download/15.4/shim-15
     tdisk.rscs,1,Rohde & Schwarz Cybersecurity GmbH,tdisk,1,https://www.rohde-schwarz.com/cybersecurity
 
 ##### Were your old SHIM hashes provided to Microsoft ?
-`This is our first SHIM submission.`
+`This is just a patched version of our first SHIM submission.`
 
 ##### Did you change your certificate strategy, so that affected by CVE-2020-14372, CVE-2020-25632, CVE-2020-25647, CVE-2020-27749,
 ##### CVE-2020-27779, CVE-2021-20225, CVE-2021-20233, CVE-2020-10713,
@@ -99,7 +100,7 @@ Yes, we are using `https://github.com/rhboot/shim/releases/download/15.4/shim-15
 ###### GRUB2 from being able to chainload those older GRUB2 binaries. If
 ###### you are changing to a new (CA) certificate, this does not
 ###### apply. Please describe your strategy.
-`This is our first SHIM submission.`
+`This is just a patched version of our first SHIM submission.`
 
 ###### How do the launched components prevent execution of unauthenticated code?
 `The integrity of each file in our boot chain is verified by checking the validity of the digital signature when using the LoadImage/StartImage functions.`
@@ -111,7 +112,7 @@ Yes, we are using `https://github.com/rhboot/shim/releases/download/15.4/shim-15
 `No Linux kernel is used.`
 
 ###### What changes were made since your SHIM was last signed?
-`This is our first SHIM submission.`
+`Added a patch to bypass the bootoption parsing and second stage loader name assembly. This code failed on some systems and produced a non-bootable name for the second stage loader. Because we are using a hardcoded path and filename for the second stage loader, we just bypass this code with this patch.`
 
 ###### What is the SHA256 hash of your final SHIM binary?
-`AEA8A013DC0E974AC62C444F9AA4ABF6373FC8D83C7BBF97F661F8D3CDA92BF6`
+`BD62EE850723B2EFDE4C413900BA117E881CB5AA2F45D0F03F87389737577F0F`

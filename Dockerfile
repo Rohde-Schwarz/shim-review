@@ -9,6 +9,7 @@ WORKDIR /build
 RUN wget https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2
 RUN tar xjf shim-15.4.tar.bz2
 RUN patch -p1 < /build/shim-review/patches/msabi.patch
+RUN patch -p1 < /build/shim-review/patches/bypass_bootoptions.patch
 COPY sbat.rscs.csv /build/shim-15.4/data
 
 WORKDIR /build/shim-15.4
