@@ -1,49 +1,19 @@
-diff -Nabur -x .git -x .vs a/shim-15.4/shim.c b/shim-15.4/shim.c
---- a/shim-15.4/shim.c	2021-07-09 09:02:26.842294700 +0200
-+++ b/shim-15.4/shim.c	2021-07-09 09:42:47.222568100 +0200
-@@ -1351,6 +1351,7 @@
- 	return EFI_SUCCESS;
- }
- 
+diff -Nabur a/shim-15.6/shim.c b/shim-15.6/shim.c
+--- a/shim-15.6/shim.c	2022-06-24 11:50:32.018238972 +0200
++++ b/shim-15.6/shim.c	2022-06-24 11:52:56.362482731 +0200
+@@ -1265,13 +1265,13 @@
+ 		return EFI_SUCCESS;
+ 	}
+ #endif
+-
 +#if 0
- static int is_our_path(EFI_LOADED_IMAGE *li, CHAR16 *path)
- {
- 	CHAR16 *dppath = NULL;
-@@ -1379,6 +1380,7 @@
- 	FreePool(PathName);
- 	return ret;
- }
-+#endif
- 
- /*
-  * Check the load options to specify the second stage loader
-@@ -1387,11 +1389,13 @@
- {
- 	EFI_STATUS efi_status;
- 	EFI_LOADED_IMAGE *li = NULL;
-+#if 0
- 	CHAR16 *start = NULL;
- 	UINTN remaining_size = 0;
- 	CHAR16 *loader_str = NULL;
- 	UINTN loader_len = 0;
- 	unsigned int i;
-+#endif
- 	UINTN second_stage_len;
- 
- 	second_stage_len = (StrLen(DEFAULT_LOADER) + 1) * sizeof(CHAR16);
-@@ -1411,6 +1415,7 @@
+ 	efi_status = parse_load_options(li);
+ 	if (EFI_ERROR(efi_status)) {
+ 		perror (L"Failed to get load options: %r\n", efi_status);
  		return efi_status;
  	}
- 
-+#if 0
- 	/* Sanity check since we make several assumptions about the length */
- 	if (li->LoadOptionsSize % 2 != 0)
- 		return EFI_INVALID_PARAMETER;
-@@ -1600,6 +1605,7 @@
- 		load_options = remaining_size ? start + (loader_len/2) : NULL;
- 		load_options_size = remaining_size;
- 	}
+-
 +#endif
- 
  	return EFI_SUCCESS;
  }
+ 

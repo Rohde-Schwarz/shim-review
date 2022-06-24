@@ -8,8 +8,8 @@ This repo is for review of requests for signing shim.  To create a request for r
 - commit all of that
 - tag it with a tag of the form "myorg-shim-arch-YYYYMMDD"
 - push that to github
-- file an issue at https://github.com/rhboot/shim-review/issues with a link to your branch
-- approval is ready when you have accepted tag
+- file an issue at https://github.com/rhboot/shim-review/issues with a link to your tag
+- approval is ready when the "accepted" label is added to your issue
 
 Note that we really only have experience with using GRUB2 on Linux, so asking
 us to endorse anything else for signing is going to require some convincing on
@@ -18,22 +18,22 @@ your part.
 Here's the template:
 
 -------------------------------------------------------------------------------
-What organization or people are asking to have this signed:
+### What organization or people are asking to have this signed?
 -------------------------------------------------------------------------------
 Rohde & Schwarz Cybersecurity GmbH
 
 -------------------------------------------------------------------------------
-What product or service is this for:
+### What product or service is this for?
 -------------------------------------------------------------------------------
 Trusted Disk full-disk encryption
 
 -------------------------------------------------------------------------------
-What's the justification that this really does need to be signed for the whole world to be able to boot it:
+### What's the justification that this really does need to be signed for the whole world to be able to boot it?
 -------------------------------------------------------------------------------
-Trusted Disk provides full-disk encryption for internal and external storage devices and protects data from unauthorized access. With a signed SHIM bootloader we are able to use the secure boot feature to ensure that each of the files in the boot chain are unmodified.
+Trusted Disk provides full-disk encryption for internal and external storage devices and protects data from unauthorized access. With a signed SHIM bootloader we are able to use the secure boot feature to ensure that each of the files in the boot chain is unmodified.
 
 -------------------------------------------------------------------------------
-Who is the primary contact for security updates, etc.
+### Who is the primary contact for security updates, etc.?
 -------------------------------------------------------------------------------
 - Name: Clemens Schulz
 - Position: Director Desktop Security
@@ -41,7 +41,7 @@ Who is the primary contact for security updates, etc.
 - PGP key: https://github.com/Rohde-Schwarz/shim-review/blob/master/keys/schulz.pub
 
 -------------------------------------------------------------------------------
-Who is the secondary contact for security updates, etc.
+### Who is the secondary contact for security updates, etc.?
 -------------------------------------------------------------------------------
 - Name: Daniel Neus
 - Position: Team Coordinator Trusted Disk
@@ -49,90 +49,87 @@ Who is the secondary contact for security updates, etc.
 - PGP key: https://github.com/Rohde-Schwarz/shim-review/blob/master/keys/neus.pub
 
 -------------------------------------------------------------------------------
-Please create your shim binaries starting with the 15.4 shim release tar file:
-https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2
+### Were these binaries created from the 15.6 shim release tar?
+Please create your shim binaries starting with the 15.6 shim release tar file: https://github.com/rhboot/shim/releases/download/15.6/shim-15.6.tar.bz2
 
-This matches https://github.com/rhboot/shim/releases/tag/15.4 and contains
-the appropriate gnu-efi source.
--------------------------------------------------------------------------------
-We are using https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2
+This matches https://github.com/rhboot/shim/releases/tag/15.6 and contains the appropriate gnu-efi source.
 
 -------------------------------------------------------------------------------
-URL for a repo that contains the exact code which was built to get this binary:
--------------------------------------------------------------------------------
-Please use the Dockerfile in https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20210711 to build and verify our shim bootloader. We are using https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2 
+We are using https://github.com/rhboot/shim/releases/download/15.6/shim-15.6.tar.bz2
 
 -------------------------------------------------------------------------------
-What patches are being applied and why:
+### URL for a repo that contains the exact code which was built to get this binary:
 -------------------------------------------------------------------------------
-**msabi.patch** Using the ms_abi calling convention for the SHIM_LOCK protocol function invocation.
+Please use the Dockerfile in https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20220630 to build and verify our shim bootloader.  
+
+-------------------------------------------------------------------------------
+### What patches are being applied and why:
+-------------------------------------------------------------------------------
+**msabi.patch** Using the ms_abi calling convention for the SHIM_LOCK protocol function invocation.  
 **bypass_bootoptions.patch** Bypass bootoption parsing and second stage loader name assembly.
 
--------------------------------------------------------------------------------
-If bootloader, shim loading is, GRUB2: is CVE-2020-14372, CVE-2020-25632,
- CVE-2020-25647, CVE-2020-27749, CVE-2020-27779, CVE-2021-20225, CVE-2021-20233,
- CVE-2020-10713, CVE-2020-14308, CVE-2020-14309, CVE-2020-14310, CVE-2020-14311,
- CVE-2020-15705, and if you are shipping the shim_lock module CVE-2021-3418
--------------------------------------------------------------------------------
-No GRUB bootloader is used.
-
+We added a patch to bypass the bootoption parsing and second stage loader name assembly. This code failed on some systems and produced a non-bootable name for the second stage loader. Because we are using a hardcoded path and filename for the second stage loader, we just bypass this code with this patch.
 
 -------------------------------------------------------------------------------
-What exact implementation of Secureboot in GRUB2 ( if this is your bootloader ) you have ?
-* Upstream GRUB2 shim_lock verifier or * Downstream RHEL/Fedora/Debian/Canonical like implementation ?
+### If shim is loading GRUB2 bootloader what exact implementation of Secureboot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
 -------------------------------------------------------------------------------
 No GRUB bootloader is used.
 
 -------------------------------------------------------------------------------
-If bootloader, shim loading is, GRUB2, and previous shims were trusting affected
-by CVE-2020-14372, CVE-2020-25632, CVE-2020-25647, CVE-2020-27749,
-  CVE-2020-27779, CVE-2021-20225, CVE-2021-20233, CVE-2020-10713,
-  CVE-2020-14308, CVE-2020-14309, CVE-2020-14310, CVE-2020-14311, CVE-2020-15705,
-  and if you were shipping the shim_lock module CVE-2021-3418
-  ( July 2020 grub2 CVE list + March 2021 grub2 CVE list )
-  grub2:
-* were old shims hashes provided to Microsoft for verification
-  and to be added to future DBX update ?
-* Does your new chain of trust disallow booting old, affected by CVE-2020-14372,
-  CVE-2020-25632, CVE-2020-25647, CVE-2020-27749,
-  CVE-2020-27779, CVE-2021-20225, CVE-2021-20233, CVE-2020-10713,
-  CVE-2020-14308, CVE-2020-14309, CVE-2020-14310, CVE-2020-14311, CVE-2020-15705,
-  and if you were shipping the shim_lock module CVE-2021-3418
-  ( July 2020 grub2 CVE list + March 2021 grub2 CVE list )
-  grub2 builds ?
+### If shim is loading GRUB2 bootloader and your previously released shim booted a version of grub affected by any of the CVEs in the July 2020 grub2 CVE list, the March 2021 grub2 CVE list, or the June 7th 2022 grub2 CVE list:
+* CVE-2020-14372
+* CVE-2020-25632
+* CVE-2020-25647
+* CVE-2020-27749
+* CVE-2020-27779
+* CVE-2021-20225
+* CVE-2021-20233
+* CVE-2020-10713
+* CVE-2020-14308
+* CVE-2020-14309
+* CVE-2020-14310
+* CVE-2020-14311
+* CVE-2020-15705
+* CVE-2021-3418 (if you are shipping the shim_lock module)
+
+* CVE-2021-3695
+* CVE-2021-3696
+* CVE-2021-3697
+* CVE-2022-28733
+* CVE-2022-28734
+* CVE-2022-28735
+* CVE-2022-28736
+* CVE-2022-28737
+
+### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
+### Does your new chain of trust disallow booting old GRUB2 builds affected by the CVEs?
 -------------------------------------------------------------------------------
 No GRUB bootloader is used.
 
 -------------------------------------------------------------------------------
-If your boot chain of trust includes linux kernel, is
-"efi: Restrict efivar_ssdt_load when the kernel is locked down"
-upstream commit 1957a85b0032a81e6482ca4aab883643b8dae06e applied ?
-Is "ACPI: configfs: Disallow loading ACPI tables when locked down"
-upstream commit 75b0cea7bf307f362057cc778efe89af4c615354 applied ?
+### If your boot chain of trust includes a Linux kernel:
+### Is upstream commit [1957a85b0032a81e6482ca4aab883643b8dae06e "efi: Restrict efivar_ssdt_load when the kernel is locked down"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1957a85b0032a81e6482ca4aab883643b8dae06e) applied?
+### Is upstream commit [75b0cea7bf307f362057cc778efe89af4c615354 "ACPI: configfs: Disallow loading ACPI tables when locked down"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=75b0cea7bf307f362057cc778efe89af4c615354) applied?
+### Is upstream commit [eadb2f47a3ced5c64b23b90fd2a3463f63726066 "lockdown: also lock down previous kgdb use"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=eadb2f47a3ced5c64b23b90fd2a3463f63726066) applied?
+
 -------------------------------------------------------------------------------
 No Linux kernel is used.
 
-
 -------------------------------------------------------------------------------
-If you use vendor_db functionality of providing multiple certificates and/or
-hashes please briefly describe your certificate setup. If there are allow-listed hashes
-please provide exact binaries for which hashes are created via file sharing service,
-available in public with anonymous access for verification
+### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
+### If there are allow-listed hashes please provide exact binaries for which hashes are created via file sharing service, available in public with anonymous access for verification.
 -------------------------------------------------------------------------------
 No vendor_db is used.
 
 -------------------------------------------------------------------------------
-If you are re-using a previously used (CA) certificate, you will need
-to add the hashes of the previous GRUB2 binaries to vendor_dbx in shim
-in order to prevent GRUB2 from being able to chainload those older GRUB2
-binaries. If you are changing to a new (CA) certificate, this does not
-apply. Please describe your strategy.
+### If you are re-using a previously used (CA) certificate, you will need to add the hashes of the previous GRUB2 binaries exposed to the CVEs to vendor_dbx in shim in order to prevent GRUB2 from being able to chainload those older GRUB2 binaries. If you are changing to a new (CA) certificate, this does not apply.
+### Please describe your strategy.
 -------------------------------------------------------------------------------
-This is just a patched version of our first SHIM submission.
+No GRUB bootloader is used.
 
 -------------------------------------------------------------------------------
-What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as close as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
-If possible, provide a Dockerfile that rebuilds the shim.
+### What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as closely as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
+### If the shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case and what the differences would be.
 -------------------------------------------------------------------------------
 Please use the included Dockerfile to build and verify our shim bootloader.
 
@@ -141,12 +138,87 @@ Use the command:
 docker build https://github.com/Rohde-Schwarz/shim-review.git
 
 to reproduce this build.
--------------------------------------------------------------------------------
-Which files in this repo are the logs for your build?   This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
--------------------------------------------------------------------------------
-https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20210711/build.log
 
 -------------------------------------------------------------------------------
-Add any additional information you think we may need to validate this shim
+### Which files in this repo are the logs for your build?
+This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
+
+-------------------------------------------------------------------------------
+https://github.com/Rohde-Schwarz/shim-review/blob/rohdeschwarz-shim-x64-20220630/build.log
+
+-------------------------------------------------------------------------------
+### What changes were made since your SHIM was last signed?
+-------------------------------------------------------------------------------
+No changes were made. 
+
+-------------------------------------------------------------------------------
+### What is the SHA256 hash of your final SHIM binary?
+-------------------------------------------------------------------------------
+2F0FAA6451D33E05FB12CD43EBA618563C40EA5CF531ABD5AB7CC74F53132FBB
+
+-------------------------------------------------------------------------------
+### How do you manage and protect the keys used in your SHIM?
+-------------------------------------------------------------------------------
+The private key is stored on hardware token with restricted access.
+
+-------------------------------------------------------------------------------
+### Do you use EV certificates as embedded certificates in the SHIM?
+-------------------------------------------------------------------------------
+No.
+
+-------------------------------------------------------------------------------
+### Do you add a vendor-specific SBAT entry to the SBAT section in each binary that supports SBAT metadata ( grub2, fwupd, fwupdate, shim + all child shim binaries )?
+### Please provide exact SBAT entries for all SBAT binaries you are booting or planning to boot directly through shim.
+### Where your code is only slightly modified from an upstream vendor's, please also preserve their SBAT entries to simplify revocation.
+-------------------------------------------------------------------------------
+
+**shim**
+
+    sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+    shim,2,UEFI shim,shim,1,https://github.com/rhboot/shim
+    shim.rscs,2,Rohde & Schwarz Cybersecurity GmbH,shim,15.6,https://www.rohde-schwarz.com/cybersecurity
+
+**trusted disk**
+
+    sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+    tdisk.rscs,1,Rohde & Schwarz Cybersecurity GmbH,tdisk,1,https://www.rohde-schwarz.com/cybersecurity
+
+-------------------------------------------------------------------------------
+### Which modules are built into your signed grub image?
+-------------------------------------------------------------------------------
+No GRUB bootloader is used.
+
+-------------------------------------------------------------------------------
+### What is the origin and full version number of your bootloader (GRUB or other)?
+-------------------------------------------------------------------------------
+No GRUB bootloader is used.
+
+-------------------------------------------------------------------------------
+### If your SHIM launches any other components, please provide further details on what is launched.
+-------------------------------------------------------------------------------
+The SHIM launches our pre-boot authentication component that decrypts the system and boots a Windows operating system.
+
+-------------------------------------------------------------------------------
+### If your GRUB2 launches any other binaries that are not the Linux kernel in SecureBoot mode, please provide further details on what is launched and how it enforces Secureboot lockdown.
+-------------------------------------------------------------------------------
+No GRUB bootloader is used.
+
+-------------------------------------------------------------------------------
+### How do the launched components prevent execution of unauthenticated code?
+-------------------------------------------------------------------------------
+The integrity of each file in our boot chain is verified by checking the validity of the digital signature when using the LoadImage/StartImage functions.
+
+-------------------------------------------------------------------------------
+### Does your SHIM load any loaders that support loading unsigned kernels (e.g. GRUB)?
+-------------------------------------------------------------------------------
+No.
+
+-------------------------------------------------------------------------------
+### What kernel are you using? Which patches does it includes to enforce Secure Boot?
+-------------------------------------------------------------------------------
+No Linux kernel is used.
+
+-------------------------------------------------------------------------------
+### Add any additional information you think we may need to validate this shim.
 -------------------------------------------------------------------------------
 According to an email from the Microsoft signing team, we submit our signing request to both the SHIM review board and through the Microsoft signing portal.
