@@ -1,7 +1,7 @@
-diff -Nabur a/shim-15.6/shim.c b/shim-15.6/shim.c
---- a/shim-15.6/shim.c	2022-06-24 11:50:32.018238972 +0200
-+++ b/shim-15.6/shim.c	2022-06-24 11:52:56.362482731 +0200
-@@ -1265,13 +1265,13 @@
+diff -Nabur a/shim-15.8/shim.c b/shim-15.8/shim.c
+--- a/shim-15.8/shim.c	2024-01-22 20:18:05.000000000 +0100
++++ b/shim-15.8/shim.c	2024-02-13 09:22:14.755599400 +0100
+@@ -1307,13 +1307,13 @@
  		return EFI_SUCCESS;
  	}
  #endif
