@@ -1,0 +1,63 @@
+diff -Nabur a/shim-16.1/BUILDING b/shim-16.1/BUILDING
+--- a/shim-16.1/BUILDING	2025-09-29 08:08:58.073990506 +0200
++++ b/shim-16.1/BUILDING	2025-09-29 08:09:22.893990412 +0200
+@@ -43,6 +43,9 @@
+   by firmware. It breaks loading non-default second-stage loaders when invoked
+   via that path, and requires using a binary named shim*.efi (or really anything
+   else).
++- DISABLE_ALL_LOAD_OPTIONS
++  Disables load option parsing like DISABLE_REMOVABLE_LOAD_OPTIONS, but for all
++  devices, not just removable media.
+ - REQUIRE_TPM
+   if tpm logging or extends return an error code, treat that as a fatal error.
+ - ARCH
+diff -Nabur a/shim-16.1/Make.defaults b/shim-16.1/Make.defaults
+--- a/shim-16.1/Make.defaults	2025-09-29 08:08:58.150990506 +0200
++++ b/shim-16.1/Make.defaults	2025-09-29 08:09:22.893990412 +0200
+@@ -153,6 +153,10 @@
+ 	DEFINES  += -DDISABLE_REMOVABLE_LOAD_OPTIONS
+ endif
+ 
++ifneq ($(origin DISABLE_ALL_LOAD_OPTIONS), undefined)
++	DEFINES  += -DDISABLE_ALL_LOAD_OPTIONS
++endif
++
+ LIB_GCC		= $(shell $(CC) $(ARCH_CFLAGS) -print-libgcc-file-name)
+ EFI_LIBS	= -lefi -lgnuefi --start-group Cryptlib/libcryptlib.a Cryptlib/OpenSSL/libopenssl.a --end-group $(LIB_GCC)
+ FORMAT		?= --target efi-app-$(ARCH)
+diff -Nabur a/shim-16.1/shim.c b/shim-16.1/shim.c
+--- a/shim-16.1/shim.c	2025-09-29 08:08:58.171990506 +0200
++++ b/shim-16.1/shim.c	2025-09-29 08:09:22.893990412 +0200
+@@ -481,16 +481,19 @@
+ /*
+  * Check the load options to specify the second stage loader
+  */
+-EFI_STATUS set_second_stage (EFI_HANDLE image_handle)
++EFI_STATUS set_second_stage (__attribute__((unused)) EFI_HANDLE image_handle)
+ {
+-	EFI_STATUS efi_status;
+-	EFI_LOADED_IMAGE *li = NULL;
+-
+ 	second_stage = (optional_second_stage) ? optional_second_stage : DEFAULT_LOADER;
+ 	load_options = NULL;
+ 	load_options_size = 0;
+ 
+-	efi_status = BS->HandleProtocol(image_handle, &LoadedImageProtocol,
++#ifndef DISABLE_ALL_LOAD_OPTIONS
++	/*
++	 * to avoid errors when parsing the load options on some systems,
++	 * or if it is not needed, the function can be completely disabled.
++	 */
++	EFI_LOADED_IMAGE *li = NULL;
++	EFI_STATUS efi_status = BS->HandleProtocol(image_handle, &LoadedImageProtocol,
+ 					(void **) &li);
+ 	if (EFI_ERROR(efi_status)) {
+ 		perror (L"Failed to get load options: %r\n", efi_status);
+@@ -513,6 +516,7 @@
+ 		perror (L"Failed to get load options: %r\n", efi_status);
+ 		return efi_status;
+ 	}
++#endif
+ 
+ 	return EFI_SUCCESS;
+ }

@@ -12,15 +12,23 @@ Confirm the following are included in your repo, checking each box:
 *******************************************************************************
 ### What is the link to your tag in a repo cloned from rhboot/shim-review?
 *******************************************************************************
-https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20240219
+https://github.com/Rohde-Schwarz/shim-review/tree/rohdeschwarz-shim-x64-20250930
 
 *******************************************************************************
 ### What is the SHA256 hash of your final SHIM binary?
 *******************************************************************************
-`6A887C457F51CEE59855C4B98834E9EAB273A6400AB9137BCD0A99DBAE1AAA60`
+`A8824233B71F86834E64AAEA754B82F82E38A8DD5B8DEA00B529DABBFEB36B48`
 
 *******************************************************************************
 ### What is the link to your previous shim review request (if any, otherwise N/A)?
 *******************************************************************************
+[Shim 15.8](https://github.com/rhboot/shim-review/issues/385)
+
 [Shim 15.6](https://github.com/rhboot/shim-review/issues/257)
+
 [Shim 15.4](https://github.com/rhboot/shim-review/issues/191)
+
+*******************************************************************************
+### If no security contacts have changed since verification, what is the link to your request, where they've been verified (if any, otherwise N/A)?
+*******************************************************************************
+`N/A`
